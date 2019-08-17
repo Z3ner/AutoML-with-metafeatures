@@ -1,0 +1,2 @@
+# AutoML-with-metafeatures
+AutoML is one of the most important fields of Machine Learning whose purpose is to automate the creation of models (without knowledge of the world of data science) and optionally, obtain better results than any handcrafted solution. One approach to the selection of classifiers has been the learning of metafeaturing which consists in trying to know the nature of the data with (for example) a model like Gaussian process.
