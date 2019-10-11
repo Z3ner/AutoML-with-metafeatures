@@ -101,11 +101,13 @@ class Metadataset(Dataset):
 		k_folds = [indexes[i::k] for i in range(k)]
 		for k_test in range(k):
 			fold = Fold()
-			fold.trainIndexes = [y for x in k_folds for y in x]
-			fold.testIndexes = [k_folds[k_test]]
+			fold.trainIndexes = [y for x in k_folds[:k_test] for y in x] + [y for x in k_folds[k_test+1:] for y in x]
+			fold.testIndexes = k_folds[k_test]
+			print(fold.trainIndexes)
+			print(fold.testIndexes)
 			self.folds += [fold]
 
-		print(self.folds)
+
 		return self.folds
 
 

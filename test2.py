@@ -33,14 +33,12 @@ metadataset.showInfo()
 kernel1 = DotProduct() + WhiteKernel()
 
 
-final_classifier = AutoClassifier(kernel = kernel1)
-acc, _ = final_classifier.score(metadataset)
-print("Final Accuracy =", acc)
+auto_regressor = AutoRegressor(kernel = kernel1)
 
-"""
 for i in range(len(metadataset.folds)):
-	test_data=metadataset.collectData(metadataset.folds[i].testIndexes)
-	logits = final_classifier.predict(metadataset.getXTest(i))
+	auto_regressor = AutoRegressor(kernel=kernel1)
+	auto_regressor.train(metadataset, i)
+	test_data = metadataset.collectData(metadataset.folds[i].testIndexes)
+	accuracies = auto_regressor.predict(metadataset.getXTest(i))
 	print("Labels:", test_data[:,-1])
-	print("Logits:", logits)
-"""
+	print("Accuracies:", accuracies)

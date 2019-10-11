@@ -44,6 +44,7 @@ class Classifier:
 				self.train(dataset, fold = fold)
 				test_data=dataset.collectData(dataset.folds[fold].testIndexes)
 				logits = self.predict(dataset.getXTest(fold = fold))
+				#print(logits, test_data[:,-1])
 				errors += [self.error(test_data, logits)]
 
 			errors = np.array(errors)
@@ -259,11 +260,13 @@ class LogisticRegressionClassifier(Classifier):
 class LogisticRegression2Classifier(Classifier):
 
 	def __init__(self, random_state=0, solver='lbfgs'):
-		
-		self.clf = LogisticRegression(random_state=random_state, solver=solver)
+
+		self.random_state = random_state
+		self.solver = solver
 
 	def train(self, dataset, fold = 0):
- 
+
+		self.clf = LogisticRegression(random_state=self.random_state, solver=self.solver)
 		train_data = dataset.collectData(dataset.folds[fold].trainIndexes)
 		self.clf.fit(train_data[:,:-1], train_data[:,-1])
 
@@ -367,12 +370,13 @@ class GaussianNBClassifier(Classifier):
 
 class KNN2Classifier(Classifier):
 
-	def __init__(self, random_state=0):
-		
-		self.clf = KNeighborsClassifier(n_neighbors=3)
+	def __init__(self, n_neighbors=3):
+
+		self.n_neighbors = n_neighbors
 
 	def train(self, dataset, fold = 0):
- 
+
+		self.clf = KNeighborsClassifier(n_neighbors=self.n_neighbors)
 		train_data = dataset.collectData(dataset.folds[fold].trainIndexes)
 		self.clf.fit(train_data[:,:-1], train_data[:,-1])
 
@@ -382,12 +386,13 @@ class KNN2Classifier(Classifier):
 
 class MLPClassifier(Classifier):
 
-	def __init__(self, random_state=0):
-		
-		self.clf = MLPClf(hidden_layer_sizes=(64, 32, ))
+	def __init__(self, hidden_layers=(64, 32, )):
+
+		self.hidden_layers = hidden_layers
 
 	def train(self, dataset, fold = 0):
- 
+
+		self.clf = MLPClf(hidden_layer_sizes=self.hidden_layers)
 		train_data = dataset.collectData(dataset.folds[fold].trainIndexes)
 		self.clf.fit(train_data[:,:-1], train_data[:,-1])
 

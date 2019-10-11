@@ -106,8 +106,8 @@ class Dataset:
 			k_folds = [indexes[i::k] for i in range(k)]
 			for k_test in range(k):
 				fold = Fold()
-				fold.trainIndexes = [y for x in k_folds for y in x]
-				fold.testIndexes = [k_folds[k_test]]
+				fold.trainIndexes = [y for x in k_folds[:k_test] for y in x] + [y for x in k_folds[k_test + 1:] for y in x]
+				fold.testIndexes = k_folds[k_test]
 				self.folds += [fold]
 
 		elif mode == "Boostrap":
