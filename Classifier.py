@@ -128,8 +128,8 @@ class NaiveBayesClassifier(Classifier):
 
 		return np.array(logits)
 
-    
-    
+
+
 class KNNClassifier(Classifier):
 
 	def __init__(self, k = 3 ,norm = True):
@@ -312,10 +312,12 @@ class DecisionTreeClassifier(Classifier):
 
 	def __init__(self, random_state=0):
 		
-		self.clf = DTClassifier(random_state=random_state)
+		self.random_state = random_state
+		
 
 	def train(self, dataset, fold = 0):
- 
+
+		self.clf = DTClassifier(random_state=self.random_state)
 		train_data = dataset.collectData(dataset.folds[fold].trainIndexes)
 		self.clf.fit(train_data[:,:-1], train_data[:,-1])
 
@@ -357,10 +359,11 @@ class GaussianNBClassifier(Classifier):
 
 	def __init__(self, random_state=0):
 		
-		self.clf = GaussianNB()
+		self.random_state = random_state
 
 	def train(self, dataset, fold = 0):
- 
+
+		self.clf = GaussianNB()
 		train_data = dataset.collectData(dataset.folds[fold].trainIndexes)
 		self.clf.fit(train_data[:,:-1], train_data[:,-1])
 
@@ -370,7 +373,7 @@ class GaussianNBClassifier(Classifier):
 
 class KNN2Classifier(Classifier):
 
-	def __init__(self, n_neighbors=3):
+	def __init__(self, n_neighbors=5):
 
 		self.n_neighbors = n_neighbors
 

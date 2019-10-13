@@ -26,7 +26,7 @@ list_path_train = [os.path.join("data", os.path.join("train", file)) for file in
 data_files_test = os.listdir("data/test")
 list_path_test = [os.path.join("data", os.path.join("test", file)) for file in data_files_test]
 
-classifiers = [LogisticRegression2Classifier, KNN2Classifier, MLPClassifier]
+classifiers = [LogisticRegression2Classifier, SVMClassifier, MLPClassifier]
 metadataset = Metadataset(train_data = list_path_train, classifiers = classifiers)
 metadataset.showInfo()
 
