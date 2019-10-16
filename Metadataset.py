@@ -53,9 +53,9 @@ class Metadataset(Dataset):
 
 		model = SelectFromModel(clf, prefit=True)
 
-		self.featureSelectionDataset = model.transform(x_data)
+		new_x_data = model.transform(x_data)
 
-		return featureSelectionDataset
+		return new_x_data
 
 	def normalization(self, data):
 
@@ -90,7 +90,7 @@ class Metadataset(Dataset):
 		return norm
 
 
-	def createFoldsMetadataset(self, mode = "Random", k = 4, p_train = 0.8, seed=None):
+	def createFoldsMetadataset(self, mode = "Random", k = 9, p_train = 0.8, seed=None):
 
 		random.seed(seed)
 		self.folds=[]

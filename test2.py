@@ -20,8 +20,8 @@ from sklearn.gaussian_process.kernels import (RBF, Matern, RationalQuadratic,
 import os
 
 
-data_files_train = os.listdir("data/train")
-list_path_train = [os.path.join("data", os.path.join("train", file)) for file in data_files_train]
+data_files_train = os.listdir("data/final")
+list_path_train = [os.path.join("data", os.path.join("final", file)) for file in data_files_train]
 
 data_files_test = os.listdir("data/test")
 list_path_test = [os.path.join("data", os.path.join("test", file)) for file in data_files_test]
